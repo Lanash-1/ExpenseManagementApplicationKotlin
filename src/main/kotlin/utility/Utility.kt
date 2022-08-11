@@ -37,26 +37,6 @@ class Utility(
         getConnection()
     }
 
-    fun sampleQuery(){
-
-        try{
-            st = conn!!.createStatement()
-            query = "select count(*) from Expense"
-            rs = st!!.executeQuery(query)
-            if(st!!.execute(query)){
-                rs = st!!.resultSet
-            }
-            while(rs!!.next()){
-                println(rs!!.getInt(1))
-            }
-        }catch (error: Exception){
-            println("error sample query")
-        }
-    }
-
-
-
-
     fun loginValidation(input: String, password: String): Boolean {
         query = "select count(*) from UserData where EmailID = '$input' and Password = '$password' or UserID = '$input' and Password = '$password';"
         try {
@@ -67,6 +47,26 @@ class Utility(
             }
         }catch (error: Exception){
             println("Error while login validation")
+        }
+        return false
+    }
+
+    fun checkUnique(input: String, field: String): Boolean{
+        query = "select count($field), $field from UserData where $field = '$input'"
+        st = conn!!.createStatement()
+        rs = st!!.executeQuery (query)
+        while(rs!!.next()){
+            return rs!!.getInt(1) == 0
+        }
+        return true
+    }
+
+    fun linkedAccountExists(accountNumber: Int): Boolean{
+        query = "select count(AccountNumber), AccountNumber from BankAccount where AccountNumber = $accountNumber"
+        st = conn!!.createStatement()
+        rs = st!!.executeQuery(query)
+        while(rs!!.next()){
+            return rs!!.getInt(1) == 0
         }
         return false
     }

@@ -18,7 +18,7 @@ class EntryView {
                 if(helper.checkValidRecord(entryOption, Entry.values().size)){
                     val entry: Entry = Entry.values()[entryOption-1]
                     if(entryOperations(entry)){
-                        break;
+                        break
                     }
                 }else{
                     println("Enter proper input.")

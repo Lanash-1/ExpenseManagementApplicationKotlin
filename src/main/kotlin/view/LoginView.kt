@@ -1,6 +1,7 @@
 package view
 
 import controller.ProfileController
+import utility.BankAccountData
 import utility.Utility
 
 class LoginView {
@@ -12,6 +13,10 @@ class LoginView {
             println("validated")
             val profileController = ProfileController()
             profileController.getUserDetails(input)
+            val bankAccountData = BankAccountData()
+            profileController.user?.accounts = bankAccountData.getBankDetails(profileController.user?.userName!!)
+            val dashboardView = DashboardView()
+            dashboardView.viewDashboard(profileController)
         }
     }
 

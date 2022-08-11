@@ -1,3 +1,3 @@
 package model
 
-data class LinkedAccount(val accountNumber: Int, val bankName: String)
+data class LinkedAccount(var accountNumber: Int, var bankName: String)

@@ -6,7 +6,7 @@ import java.sql.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class BankAccountData(
+class BankAccountData (
     private var conn: Connection? = null,
     private var st: Statement? = null,
     private var rs: ResultSet? = null,
@@ -37,14 +37,31 @@ class BankAccountData(
     }
 
     override fun getBankDetails(userId: String): ArrayList<LinkedAccount> {
-        TODO("Not yet implemented")
+        query = "select AccountNumber, BankName from BankAccount where UserID = '$userId'"
+        st = conn!!.createStatement()
+        rs = st!!.executeQuery(query)
+        var accounts: ArrayList<LinkedAccount> = ArrayList()
+        while(rs!!.next()){
+            accounts.add(LinkedAccount(rs!!.getInt(1), rs!!.getString(2)))
+        }
+        return accounts
     }
 
-    override fun linkAccount(userId: String, accounts: LinkedAccount) {
-        TODO("Not yet implemented")
+    override fun linkAccount(userId: String, account: LinkedAccount) {
+        query = "insert into BankAccount values('"+userId+"',"+account.accountNumber+",'"+account.bankName+"')"
+        st = conn!!.createStatement()
+        st!!.executeUpdate(query)
     }
 
-    override fun removeAccount(accounts: LinkedAccount) {
-        TODO("Not yet implemented")
+    override fun removeAccount(account: LinkedAccount) {
+        query = "delete from BankAccount where AccountNumber = "+account.accountNumber
+        st = conn?.createStatement()
+        st!!.executeUpdate(query)
+        query = "delete from Incoming where AccountNumber = "+account.accountNumber
+        st = conn?.createStatement()
+        st!!.executeUpdate(query)
+        query = "delete from Expense where AccountNumber = "+account.accountNumber
+        st = conn?.createStatement()
+        st!!.executeUpdate(query)
     }
 }
