@@ -1,3 +1,3 @@
 package model
 
-data class Expense(val amount: Double, val category: String, val expenseId: Int, val account: LinkedAccount)
+data class Expense(var amount: Double, var category: String, var expenseId: Int, var account: LinkedAccount)

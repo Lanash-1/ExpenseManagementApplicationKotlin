@@ -1,41 +1,102 @@
 package view
 
+import controller.LinkedAccountController
 import controller.ProfileController
 import model.LinkedAccount
+import utility.Helper
 import java.util.ArrayList
 
 class LinkedAccountView {
+
+    private val linkedAccountController = LinkedAccountController()
     fun viewBankAccounts(accounts: ArrayList<LinkedAccount>) {
-        TODO("Not yet implemented")
+        if(accounts.size == 0){
+            println("\n-------- NO ACCOUNTS LINKED --------\n")
+        }else{
+            println("S.NO\t\tAccount Number\t\t\tBankName")
+            for(i in 0..accounts.size-1){
+                println("${i+1}. \t\t${accounts[i].accountNumber}\t\t\t\t${accounts[i].bankName}")
+            }
+        }
     }
 
     fun accountOperations(profileController: ProfileController) {
-        TODO("Not yet implemented")
+        var isValidOption = false
+        while(!isValidOption){
+            for(accountOptions: enums.LinkedAccount in enums.LinkedAccount.values()){
+                println("${accountOptions.ordinal+1}. $accountOptions")
+            }
+            print("Enter your choice: ")
+            try{
+                val option = readLine()!!.toInt()
+                val helper = Helper()
+                if(helper.checkValidRecord(option, enums.LinkedAccount.values().size)){
+                    val entry: enums.LinkedAccount = enums.LinkedAccount.values()[option-1]
+                    isValidOption = operations(entry, profileController)
+                }else{
+                    println("Enter proper input.")
+                }
+            }catch (error: Exception){
+                println("Enter a valid option. Linked account view")
+            }
+
+        }
+    }
+
+    private fun operations(entry: enums.LinkedAccount, profileController: ProfileController): Boolean {
+        when(entry){
+            enums.LinkedAccount.LINK_ACCOUNT -> {
+                linkedAccountController.linkAccount(profileController)
+                return false
+            }
+            enums.LinkedAccount.REMOVE_ACCOUNT -> {
+                viewBankAccounts(profileController.user?.accounts!!)
+                if(profileController.user?.accounts!!.size > 0){
+                    linkedAccountController.removeLinkedAccount(profileController)
+                }
+                return false
+            }
+            enums.LinkedAccount.BACK -> {
+                return true
+            }
+        }
     }
 
     fun getAccountToBeDeleted(): Int {
-        TODO("Not yet implemented")
-
+        while(true){
+            print("Select the account to be deleted: ")
+            try{
+                return readLine()!!.toInt()
+            }catch (error: Exception){
+                println("Invalid option. (Account to be deleted)")
+            }
+        }
     }
 
-    fun removeStatus(b: Boolean) {
-        TODO("Not yet implemented")
-
+    fun removeStatus(status: Boolean) {
+        if(status){
+            println("Account removed Successfully")
+        }else{
+            println("Select from the linked accounts")
+        }
     }
 
     fun getAccountNumber(): Int {
-        TODO("Not yet implemented")
-
+        print("Enter Account Number: ")
+        return readLine()!!.toInt()
     }
 
     fun getBankName(): String {
-        TODO("Not yet implemented")
-
+        print("Enter Bank Name: ")
+        return readLine()!!
     }
 
-    fun linkStatus(b: Boolean) {
-        TODO("Not yet implemented")
-
+    fun linkStatus(status: Boolean) {
+        if(status){
+            println("Account linked Successfully")
+        }else{
+            println("Account already linked")
+        }
     }
 
 }

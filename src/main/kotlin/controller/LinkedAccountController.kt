@@ -7,12 +7,8 @@ import view.LinkedAccountView
 
 class LinkedAccountController {
 
-    val bankAccountData: BankAccountData
-    val linkedAccountView: LinkedAccountView
-    init {
-        bankAccountData = BankAccountData()
-        linkedAccountView = LinkedAccountView()
-    }
+    private val bankAccountData: BankAccountData = BankAccountData()
+    private val linkedAccountView: LinkedAccountView = LinkedAccountView()
 
     fun getAccountDetails(profileController: ProfileController) {
         profileController.user?.accounts = bankAccountData.getBankDetails(profileController.user?.userName!!)
@@ -33,7 +29,7 @@ class LinkedAccountController {
     }
 
     fun linkAccount(profileController: ProfileController){
-        var account = LinkedAccount(linkedAccountView.getAccountNumber(),"")
+        val account = LinkedAccount(linkedAccountView.getAccountNumber(),"")
         val util = Utility()
 
         if(util.linkedAccountExists(account.accountNumber)){

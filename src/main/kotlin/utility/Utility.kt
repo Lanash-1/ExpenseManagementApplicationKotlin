@@ -1,11 +1,10 @@
 package utility
 
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.ResultSet
-import java.sql.SQLException
-import java.sql.Statement
-import java.util.Properties
+import model.Expense
+import model.Incoming
+import model.LinkedAccount
+import java.sql.*
+import java.util.*
 
 class Utility(
     private var conn: Connection? = null,
@@ -70,5 +69,60 @@ class Utility(
         }
         return false
     }
+
+    fun filterIncoming(userName: String, accountNumber: Int): ArrayList<Incoming> {
+        query = "select * from Incoming where UserID = '$userName' and AccountNumber = $accountNumber"
+        st = conn?.createStatement()
+        rs = st?.executeQuery(query)
+        val incomingHistory = ArrayList<Incoming>()
+        while(rs!!.next()){
+            val account = LinkedAccount(rs!!.getInt(3), "")
+            val incoming = Incoming(rs!!.getDouble(2), 0, account)
+            incomingHistory.add(incoming)
+        }
+        return incomingHistory
+
+    }
+
+    fun filterExpense(userName: String, accountNumber: Int): ArrayList<Expense> {
+        query = "select * from Expense where UserID = '$userName' and AccountNumber = $accountNumber"
+        st = conn?.createStatement()
+        rs = st?.executeQuery(query)
+        val expenseHistory = ArrayList<Expense>()
+        while(rs!!.next()){
+            val account = LinkedAccount(rs!!.getInt(4), "")
+            val expense = Expense(rs!!.getDouble(3), rs!!.getString(2),0, account)
+            expenseHistory.add(expense)
+        }
+        return expenseHistory
+    }
+
+
+    fun filterExpense(userName: String, category: String): ArrayList<Expense> {
+        query = "select * from Expense where UserID = '$userName' and Category = '$category'"
+        st = conn?.createStatement()
+        rs = st?.executeQuery(query)
+        val expenseHistory = ArrayList<Expense>()
+        while(rs!!.next()){
+            val account = LinkedAccount(rs!!.getInt(4), "")
+            val expense = Expense(rs!!.getDouble(3), rs!!.getString(2),0, account)
+            expenseHistory.add(expense)
+        }
+        return expenseHistory
+    }
+
+
+
+    fun getCategoryList(userName: String): ArrayList<String> {
+        query = "select distinct Category from Expense where UserID = '$userName'"
+        st = conn?.createStatement()
+        rs = st?.executeQuery(query)
+        val categoryList = ArrayList<String>()
+        while(rs!!.next()){
+            categoryList.add(rs!!.getString(1))
+        }
+        return categoryList
+    }
+
 
 }

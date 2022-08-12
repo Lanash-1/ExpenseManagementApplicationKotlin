@@ -1,13 +1,13 @@
 package view
 
+import controller.ExpenseController
+import controller.IncomingController
 import controller.LinkedAccountController
 import controller.ProfileController
 import enums.Dashboard
-import enums.Entry
 import utility.Helper
 
 class DashboardView {
-
 
     fun viewDashboard(profileController: ProfileController) {
         while(true){
@@ -22,7 +22,7 @@ class DashboardView {
                 if(helper.checkValidRecord(entryOption, Dashboard.values().size)){
                     val entry: Dashboard = Dashboard.values()[entryOption-1]
                     if(dashboardOperations(entry, profileController)){
-                        break;
+                        break
                     }
                 }else{
                     println("Enter proper input.")
@@ -48,18 +48,26 @@ class DashboardView {
 
             }
             Dashboard.ADD_EXPENSE -> {
+                val expenseController = ExpenseController()
+                expenseController.addExpense(profileController)
                 return false
 
             }
             Dashboard.ADD_INCOMING -> {
+                val incomingController = IncomingController()
+                incomingController.addIncoming(profileController)
                 return false
 
             }
             Dashboard.EXPENSE_HISTORY -> {
+                val expenseController = ExpenseController()
+                expenseController.viewExpenseHistory(profileController)
                 return false
 
             }
             Dashboard.INCOMING_HISTORY -> {
+                val incomingController = IncomingController()
+                incomingController.viewIncomingHistory(profileController)
                 return false
 
             }
@@ -67,7 +75,6 @@ class DashboardView {
                 return true
             }
         }
-        return false
     }
 
 }
