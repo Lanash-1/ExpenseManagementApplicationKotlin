@@ -36,13 +36,13 @@ class ExpenseController {
 
     fun viewExpenseHistory(profileController: ProfileController) {
         var choice = 0
-        while(choice != 5){
+        while(choice != 6){
             choice = expenseHistoryView.viewExpense(expenseData.getExpenseHistory(profileController.user?.userName!!), profileController)
         }
     }
 
     fun deleteExpense(expenseList: ArrayList<Expense>){
-        val deleteExpenseView = DeleteIncomingView()
+        val deleteExpenseView = DeleteExpenseView()
         while(true){
             expenseHistoryView.displayExpense(expenseList)
             val recordToBeDeleted: Int = helper.getRecord()

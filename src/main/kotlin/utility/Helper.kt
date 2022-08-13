@@ -7,7 +7,7 @@ class Helper {
     }
 
     fun fieldValidation(input: String): Boolean{
-        if(input.equals("")){
+        if(input == ""){
             println("Field should not be empty")
             return false
         }
@@ -15,7 +15,7 @@ class Helper {
     }
 
     fun validatePassword(password: String, rePassword: String): Boolean{
-        return rePassword.equals(password)
+        return rePassword == password
     }
 
     fun getAccount(): Int{
@@ -33,7 +33,7 @@ class Helper {
         while(true){
             print("Enter Amount: ")
             try {
-                var amount: Double = readLine()!!.toDouble()
+                val amount: Double = readLine()!!.toDouble()
                 if(amount > 0){
                     return amount
                 }else{
@@ -47,7 +47,7 @@ class Helper {
 
     fun getRecord(): Int{
         while(true){
-            println("Select a record to edit: ")
+            println("Select a record: ")
             try {
                 return readLine()!!.toInt()
             }catch (error: Exception){
@@ -59,7 +59,7 @@ class Helper {
     fun getCategory(): String{
         val category = listOf("GADGET", "ENTERTAINMENT", "FOOD", "TRAVEL", "HEALTH", "CUSTOM")
         while(true){
-            for(i in 0..category.size-1){
+            for(i in category.indices){
                 println("${i+1}. ${category[i]}")
             }
             println("Enter your choice: ")

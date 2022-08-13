@@ -13,7 +13,7 @@ class Utility(
     private var query: String? = null,
     private val username: String = "root",
     private val password: String = "password",
-    private val url: String = "jdbc:mysql://localhost:3306/ExpenseManagementApplication"
+    private val url: String = "jdbc:mysql://localhost:3306/DemoBase"
 ) {
 
     private fun getConnection() {

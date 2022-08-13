@@ -15,7 +15,7 @@ class ExpenseData(
     private var query: String? = null,
     private val username: String = "root",
     private val password: String = "password",
-    private val url: String = "jdbc:mysql://localhost:3306/ExpenseManagementApplication"
+    private val url: String = "jdbc:mysql://localhost:3306/DemoBase"
 ): ExpenseServices {
 
     private fun getConnection() {
@@ -37,7 +37,7 @@ class ExpenseData(
     }
 
     override fun addExpense(expense: Expense, profileController: ProfileController) {
-        query = "insert into Expense(UserID, Category, Amount, AccountNumber) values('"+profileController.user.userName+"','"+expense.category+"',"+expense.amount+","+expense.account.accountNumber+")"
+        query = "insert into Expense(UserID, Category, Amount, AccountNumber) values('"+profileController.user?.userName+"','"+expense.category+"',"+expense.amount+","+expense.account.accountNumber+")"
         st = conn!!.createStatement()
         st!!.executeUpdate(query)
     }
@@ -46,21 +46,23 @@ class ExpenseData(
         query = "select * from Expense where UserID = '$userId'"
         st = conn!!.createStatement()
         rs = st!!.executeQuery(query)
-        var expenseHistory: ArrayList<Expense> = ArrayList()
+        val expenseHistory = ArrayList<Expense>()
         while(rs!!.next()){
-            expenseHistory.add(Expense(rs!!.getDouble(3), rs!!.getString(2), rs!!.getInt(5), LinkedAccount(rs!!.getInt(4), "")))
+            val linkedAccount = LinkedAccount(rs!!.getInt(4),"")
+            val expense = Expense(rs!!.getDouble(3),rs!!.getString(2),rs!!.getInt(5),linkedAccount)
+            expenseHistory.add(expense)
         }
         return expenseHistory
     }
 
     override fun getTotalExpense(userId: String): Double {
-        query = "select sum(Amount) from Expense where UserID = '$userId'";
-        st = conn!!.createStatement();
-        rs = st!!.executeQuery(query);
+        query = "select sum(Amount) from Expense where UserID = '$userId'"
+        st = conn!!.createStatement()
+        rs = st!!.executeQuery(query)
         while(rs!!.next()){
-            return rs!!.getDouble(1);
+            return rs!!.getDouble(1)
         }
-        return 0.0;
+        return 0.0
     }
 
     override fun deleteExpenseRecord(expenseId: Int) {
@@ -70,8 +72,8 @@ class ExpenseData(
     }
 
     override fun editExpenseRecord(expense: Expense) {
-        query = "update Expense set Amount = "+expense.amount+", AccountNumber = "+expense.account.accountNumber+", Category = '"+expense.category+"' where ExpenseID = "+expense.expenseId;
-        st = conn!!.createStatement();
-        st!!.executeUpdate(query);
+        query = "update Expense set Amount = "+expense.amount+", AccountNumber = "+expense.account.accountNumber+", Category = '"+expense.category+"' where ExpenseID = "+expense.expenseId
+        st = conn!!.createStatement()
+        st!!.executeUpdate(query)
     }
 }

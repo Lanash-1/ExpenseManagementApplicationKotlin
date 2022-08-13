@@ -12,9 +12,10 @@ import java.util.ArrayList
 class IncomingHistoryView {
 
     private val incomingData = IncomingData()
-    private val incomingController = IncomingController()
     var incoming = ArrayList<Incoming>()
     private val helper = Helper()
+    val util = Utility()
+
 
     fun displayIncoming(incomingList: ArrayList<Incoming>) {
         if(incomingList.size == 0){
@@ -41,7 +42,7 @@ class IncomingHistoryView {
                 try {
                     val option = readLine()!!.toInt()
                     if(helper.checkValidRecord(option, enums.Incoming.values().size)){
-                        val entry: enums.Incoming = enums.Incoming.values()[option-1]
+                        val entry = enums.Incoming.values()[option-1]
                         return incomingHistoryOperations(entry, profileController)
                     }else{
                         println("Enter proper input.")
@@ -69,7 +70,6 @@ class IncomingHistoryView {
                     try {
                         val index = readLine()!!.toInt()
                         if (helper.checkValidRecord(index, profileController.user?.accounts!!.size)) {
-                            val util = Utility()
                             return viewIncoming(
                                 util.filterIncoming(
                                     profileController.user?.userName!!,
@@ -83,11 +83,13 @@ class IncomingHistoryView {
                 }
             }
             enums.Incoming.EDIT -> {
+                val incomingController = IncomingController()
                 incoming = incomingData.getIncomingHistory(profileController.user?.userName!!)
                 incomingController.editIncoming(incoming, profileController)
                 return 3
             }
             enums.Incoming.DELETE -> {
+                val incomingController = IncomingController()
                 incoming = incomingData.getIncomingHistory(profileController.user?.userName!!)
                 incomingController.deleteIncoming(incoming)
                 incoming = incomingData.getIncomingHistory(profileController.user?.userName!!)
@@ -99,7 +101,6 @@ class IncomingHistoryView {
             }
             enums.Incoming.BACK -> return 5
         }
-        return 0
     }
 
 

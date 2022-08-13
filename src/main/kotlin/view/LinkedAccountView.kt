@@ -8,13 +8,13 @@ import java.util.ArrayList
 
 class LinkedAccountView {
 
-    private val linkedAccountController = LinkedAccountController()
+
     fun viewBankAccounts(accounts: ArrayList<LinkedAccount>) {
         if(accounts.size == 0){
             println("\n-------- NO ACCOUNTS LINKED --------\n")
         }else{
             println("S.NO\t\tAccount Number\t\t\tBankName")
-            for(i in 0..accounts.size-1){
+            for(i in 0 until accounts.size){
                 println("${i+1}. \t\t${accounts[i].accountNumber}\t\t\t\t${accounts[i].bankName}")
             }
         }
@@ -46,10 +46,12 @@ class LinkedAccountView {
     private fun operations(entry: enums.LinkedAccount, profileController: ProfileController): Boolean {
         when(entry){
             enums.LinkedAccount.LINK_ACCOUNT -> {
+                val linkedAccountController = LinkedAccountController()
                 linkedAccountController.linkAccount(profileController)
                 return false
             }
             enums.LinkedAccount.REMOVE_ACCOUNT -> {
+                val linkedAccountController = LinkedAccountController()
                 viewBankAccounts(profileController.user?.accounts!!)
                 if(profileController.user?.accounts!!.size > 0){
                     linkedAccountController.removeLinkedAccount(profileController)

@@ -13,7 +13,7 @@ class BankAccountData (
     private var query: String? = null,
     private val username: String = "root",
     private val password: String = "password",
-    private val url: String = "jdbc:mysql://localhost:3306/ExpenseManagementApplication"
+    private val url: String = "jdbc:mysql://localhost:3306/DemoBase"
 ): BankAccountServices {
 
     private fun getConnection() {
@@ -40,7 +40,7 @@ class BankAccountData (
         query = "select AccountNumber, BankName from BankAccount where UserID = '$userId'"
         st = conn!!.createStatement()
         rs = st!!.executeQuery(query)
-        var accounts: ArrayList<LinkedAccount> = ArrayList()
+        val accounts: ArrayList<LinkedAccount> = ArrayList()
         while(rs!!.next()){
             accounts.add(LinkedAccount(rs!!.getInt(1), rs!!.getString(2)))
         }

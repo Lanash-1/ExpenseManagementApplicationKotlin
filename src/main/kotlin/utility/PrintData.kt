@@ -10,14 +10,13 @@ class PrintData: PrintService {
     override fun printIncomingHistory(incoming: ArrayList<Incoming>) {
         val fileName = "incomingHistory.txt"
         val file = File(fileName)
-
-        val text = "S.No\tAccountNumber\tAmount"
-        file.writeText(text)
-        var result: String
-        for(i in 0..incoming.size-1){
-            result = "\n${i+1}. \t${incoming[i].account.accountNumber}\t${incoming[i].amount}"
-            file.writeText(result)
+        val text = "S.No\tAccountNumber\tAmount\n"
+        var result: String = text
+        for(i in 0 until incoming.size){
+            result += "\n${i + 1}. \t${incoming[i].account.accountNumber}\t${incoming[i].amount}\n"
         }
+        file.writeText(result)
+
         println("successfully printed expense History.")
     }
 
@@ -25,13 +24,12 @@ class PrintData: PrintService {
         val fileName = "expenseHistory.txt"
         val file = File(fileName)
 
-        val text = "\nS.No\tAccount Number\tAmount\tCategory"
-        file.writeText(text)
-        var result: String
-        for(i in 0..expense.size-1){
-            result = "\n${i+1}. \t${expense[i].account.accountNumber}\t${expense[i].amount}\t${expense[i].category}"
-            file.writeText(result)
+        val text = "S.No\tAccount Number\tAmount\tCategory\n"
+        var result: String = text
+        for(i in 0 until expense.size){
+            result += "\n${i+1}. \t${expense[i].account.accountNumber}\t${expense[i].amount}\t${expense[i].category}\n"
         }
+        file.writeText(result)
         println("successfully printed expense History.")
     }
 }

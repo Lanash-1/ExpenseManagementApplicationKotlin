@@ -8,7 +8,7 @@ import utility.Utility
 
 class SignupView {
 
-    val helper = Helper()
+    private val helper = Helper()
     val util = Utility()
 
     fun signup() {
@@ -19,7 +19,7 @@ class SignupView {
 
         var password: String
         do {
-            password = getInput("Enter password")
+            password = getInput("Enter password: ")
         }while (!helper.fieldValidation(password))
 
         verifyPassword(password)
@@ -48,23 +48,23 @@ class SignupView {
         dashboardView.viewDashboard(profileController)
     }
 
-    fun getInput(displayMessage: String): String{
+    private fun getInput(displayMessage: String): String{
         print(displayMessage)
         return readLine()!!
     }
 
-    fun getInput(field: String, columnName: String, error: String): String{
-        var data: String = ""
+    private fun getInput(field: String, columnName: String, error: String): String{
+        var data: String
         while(true){
-            if(field == "email"){
-                data = getInput("Enter email id: ")
+            data = if(field == "email"){
+                getInput("Enter email id: ")
             }else{
-                data = getInput("Create user Id: ")
+                getInput("Create user Id: ")
             }
 
             if(helper.fieldValidation(data)){
                 if(util.checkUnique(data, columnName)){
-                    break;
+                    break
                 }else{
                     println(error)
                     return ""
@@ -74,7 +74,7 @@ class SignupView {
         return data
     }
 
-    fun verifyPassword(password: String){
+    private fun verifyPassword(password: String){
         while (true){
             val rePassword = getInput("Re-enter password: ")
             if(helper.validatePassword(password, rePassword)){

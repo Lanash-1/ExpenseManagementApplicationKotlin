@@ -16,11 +16,10 @@ class DashboardView {
             }
             print("Enter your choice: ")
             try{
-                val option: String = readLine()!!
-                val entryOption: Int = option.toInt()
+                val entryOption = readLine()!!.toInt()
                 val helper = Helper()
                 if(helper.checkValidRecord(entryOption, Dashboard.values().size)){
-                    val entry: Dashboard = Dashboard.values()[entryOption-1]
+                    val entry = Dashboard.values()[entryOption-1]
                     if(dashboardOperations(entry, profileController)){
                         break
                     }
@@ -31,7 +30,6 @@ class DashboardView {
                 println("Enter a valid option. (View dashboard)")
             }
         }
-
     }
 
     private fun dashboardOperations(entry: Dashboard, profileController: ProfileController): Boolean {
@@ -45,31 +43,26 @@ class DashboardView {
                 val linkedAccountController = LinkedAccountController()
                 linkedAccountController.getAccountDetails(profileController)
                 return false
-
             }
             Dashboard.ADD_EXPENSE -> {
                 val expenseController = ExpenseController()
                 expenseController.addExpense(profileController)
                 return false
-
             }
             Dashboard.ADD_INCOMING -> {
                 val incomingController = IncomingController()
                 incomingController.addIncoming(profileController)
                 return false
-
             }
             Dashboard.EXPENSE_HISTORY -> {
                 val expenseController = ExpenseController()
                 expenseController.viewExpenseHistory(profileController)
                 return false
-
             }
             Dashboard.INCOMING_HISTORY -> {
                 val incomingController = IncomingController()
                 incomingController.viewIncomingHistory(profileController)
                 return false
-
             }
             Dashboard.SIGN_OUT -> {
                 return true

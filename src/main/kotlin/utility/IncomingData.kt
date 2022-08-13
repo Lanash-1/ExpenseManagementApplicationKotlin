@@ -15,7 +15,7 @@ class IncomingData(
     private var query: String? = null,
     private val username: String = "root",
     private val password: String = "password",
-    private val url: String = "jdbc:mysql://localhost:3306/ExpenseManagementApplication"
+    private val url: String = "jdbc:mysql://localhost:3306/DemoBase"
 ): IncomingServices{
 
     private fun getConnection() {
@@ -39,7 +39,7 @@ class IncomingData(
     }
 
     override fun addIncoming(incoming: Incoming, profileController: ProfileController) {
-        query = "insert into Incoming(UserId, Amount, AccountNumber) values('"+profileController.user.userName+"',"+incoming.amount+","+incoming.account.accountNumber+")"
+        query = "insert into Incoming(UserId, Amount, AccountNumber) values('"+profileController.user?.userName+"',"+incoming.amount+","+incoming.account.accountNumber+")"
         st = conn!!.createStatement()
         st!!.executeUpdate(query)
     }
@@ -48,9 +48,11 @@ class IncomingData(
         query = "select * from Incoming where UserID = '$userName'"
         st = conn!!.createStatement()
         rs = st!!.executeQuery(query)
-        var incomingHistory: ArrayList<Incoming> = ArrayList()
+        val incomingHistory = ArrayList<Incoming>()
         while(rs!!.next()){
-            incomingHistory.add(Incoming(rs!!.getDouble(2), rs!!.getInt(4), LinkedAccount(rs!!.getInt(3), "")))
+            val linkedAccount = LinkedAccount(rs!!.getInt(3),"")
+            val incoming = Incoming(rs!!.getDouble(2),rs!!.getInt(4),linkedAccount)
+            incomingHistory.add(incoming)
         }
         return incomingHistory
     }

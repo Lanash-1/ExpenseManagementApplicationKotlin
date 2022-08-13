@@ -12,7 +12,6 @@ import java.util.ArrayList
 class ExpenseHistoryView {
 
     private val expenseData = ExpenseData()
-    private val expenseController = ExpenseController()
     var expense = ArrayList<Expense>()
     private val helper = Helper()
     private val util = Utility()
@@ -43,7 +42,7 @@ class ExpenseHistoryView {
                 try {
                     val option = readLine()!!.toInt()
                     if(helper.checkValidRecord(option, enums.Expense.values().size)){
-                        val entry: enums.Expense = enums.Expense.values()[option-1]
+                        val entry = enums.Expense.values()[option-1]
                         return expenseHistoryOperations(entry, profileController)
                     }else{
                         println("Enter proper input.")
@@ -98,11 +97,13 @@ class ExpenseHistoryView {
                 }
             }
             enums.Expense.EDIT -> {
+                val expenseController = ExpenseController()
                 expense = expenseData.getExpenseHistory(profileController.user?.userName!!)
                 expenseController.editExpense(expense, profileController)
                 return 4
             }
             enums.Expense.DELETE -> {
+                val expenseController = ExpenseController()
                 expense = expenseData.getExpenseHistory(profileController.user?.userName!!)
                 expenseController.deleteExpense(expense)
                 expense = expenseData.getExpenseHistory(profileController.user?.userName!!)

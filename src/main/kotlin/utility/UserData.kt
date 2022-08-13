@@ -1,6 +1,7 @@
 package utility
 
 import interfaces.UserDataServices
+import model.LinkedAccount
 import model.User
 import java.sql.*
 import java.util.*
@@ -12,7 +13,7 @@ class UserData(
     private var query: String? = null,
     private val username: String = "root",
     private val password: String = "password",
-    private val url: String = "jdbc:mysql://localhost:3306/ExpenseManagementApplication"
+    private val url: String = "jdbc:mysql://localhost:3306/DemoBase"
 ): UserDataServices {
 
     private fun getConnection() {
@@ -38,13 +39,13 @@ class UserData(
 
 
     override fun getProfileDetails(input: String): User {
-        query = "select * from UserData where EmailID = '"+input+"' or UserID = '"+input+"'";
+        query = "select * from UserData where EmailID = '$input' or UserID = '$input'"
         st = conn!!.createStatement()
         rs = st!!.executeQuery(query)
         while(rs!!.next()){
-            return User(rs!!.getString(1), rs!!.getString(2), rs!!.getString(3), rs!!.getString(4), rs!!.getString(5))
+            return User(rs!!.getString(1), rs!!.getString(2), rs!!.getString(3), rs!!.getString(4), rs!!.getString(5),ArrayList<LinkedAccount>())
         }
-        return User("","","","","")
+        return User("","","","","", ArrayList<LinkedAccount>())
     }
 
     override fun createAccount(

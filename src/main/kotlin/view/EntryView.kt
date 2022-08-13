@@ -26,20 +26,17 @@ class EntryView {
             }catch(error: Exception){
                 println("Enter a valid option. ")
             }
-            break
         }
     }
 
     private fun entryOperations(entry: Entry): Boolean {
         when (entry) {
             Entry.LOGIN -> {
-                println("Login")
                 val loginView = LoginView()
                 loginView.login()
                 return false
             }
             Entry.SIGNUP -> {
-                println("Signup")
                 val signupView = SignupView()
                 signupView.signup()
                 return false
