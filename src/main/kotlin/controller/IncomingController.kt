@@ -1,19 +1,18 @@
 package controller
 
+import enums.Action
 import model.Incoming
 import model.LinkedAccount
 import utility.Helper
 import utility.IncomingData
 import view.*
 
-class IncomingController{
+class IncomingController: AddStatusView(){
 
     private val incomingHistoryView = IncomingHistoryView()
     private val incomingData = IncomingData()
     private val helper = Helper()
     private val incoming = Incoming(0.0, 0, LinkedAccount(0,""))
-    private val addIncomingView = AddIncomingView()
-    private val editIncomingView = EditIncomingView()
 
     fun addIncoming(profileController: ProfileController) {
         if(profileController.user?.accounts?.size!! > 0){
@@ -24,12 +23,12 @@ class IncomingController{
                 incoming.account = profileController.user?.accounts!![index-1]
                 incoming.amount = helper.getAmount()
                 incomingData.addIncoming(incoming, profileController)
-                addIncomingView.addIncomingStatus()
+                addStatus(Action.INCOMING)
             }else{
-                addIncomingView.noAccount()
+                noAccount()
             }
         }else{
-            addIncomingView.showAddAccount()
+            showAddAccount()
         }
     }
 
@@ -62,26 +61,25 @@ class IncomingController{
                 incoming.amount = amount
                 incoming.incomingId = incomingList[recordToBeEdited-1].incomingId
                 incomingData.editIncomingRecord(incoming)
-                editIncomingView.displayStatus()
+                editStatus()
                 break
             }else{
-                editIncomingView.displayError()
+                displayError()
             }
         }
     }
 
 
     fun deleteIncoming(incomingList: ArrayList<Incoming>){
-        val deleteIncomingView = DeleteIncomingView()
         while(true){
             incomingHistoryView.displayIncoming(incomingList)
             val recordToBeDeleted: Int = helper.getRecord()
             if(helper.checkValidRecord(recordToBeDeleted, incomingList.size)){
                 incomingData.deleteIncomingRecord(incomingList[recordToBeDeleted-1].incomingId)
-                deleteIncomingView.deleteStatus()
+                deleteStatus()
                 break
             }else{
-                deleteIncomingView.displayError()
+                displayError()
             }
         }
     }

@@ -1,19 +1,18 @@
 package controller
 
+import enums.Action
 import model.Expense
 import model.LinkedAccount
 import utility.ExpenseData
 import utility.Helper
 import view.*
 
-class ExpenseController {
+class ExpenseController: AddStatusView() {
 
     private val expenseHistoryView = ExpenseHistoryView()
     private val expenseData = ExpenseData()
     private val helper = Helper()
     private val expense = Expense(0.0, "", 0, LinkedAccount(0,""))
-    private val addExpenseView = AddExpenseView()
-    private val editExpenseView = EditExpenseView()
 
     fun addExpense(profileController: ProfileController) {
         if(profileController.user?.accounts?.size!! > 0){
@@ -25,12 +24,12 @@ class ExpenseController {
                 expense.amount = helper.getAmount()
                 expense.category = helper.getCategory()
                 expenseData.addExpense(expense, profileController)
-                addExpenseView.addExpenseStatus()
+                addStatus(Action.EXPENSE)
             }else{
-                addExpenseView.noAccount()
+                noAccount()
             }
         }else{
-            addExpenseView.showAddAccount()
+            showAddAccount()
         }
     }
 
@@ -42,16 +41,15 @@ class ExpenseController {
     }
 
     fun deleteExpense(expenseList: ArrayList<Expense>){
-        val deleteExpenseView = DeleteExpenseView()
         while(true){
             expenseHistoryView.displayExpense(expenseList)
             val recordToBeDeleted: Int = helper.getRecord()
             if(helper.checkValidRecord(recordToBeDeleted, expenseList.size)){
                 expenseData.deleteExpenseRecord(expenseList[recordToBeDeleted-1].expenseId)
-                deleteExpenseView.deleteStatus()
+                deleteStatus()
                 break
             }else{
-                deleteExpenseView.displayError()
+                displayError()
             }
         }
     }
@@ -75,8 +73,10 @@ class ExpenseController {
                 expense.category = helper.getCategory()
                 expense.expenseId = expenseList[recordToBeEdited-1].expenseId
                 expenseData.editExpenseRecord(expense)
-                editExpenseView.displayStatus()
+                editStatus()
                 break
+            }else{
+                displayError()
             }
         }
     }
