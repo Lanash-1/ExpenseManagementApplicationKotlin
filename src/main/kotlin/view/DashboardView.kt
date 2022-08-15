@@ -1,9 +1,6 @@
 package view
 
-import controller.ExpenseController
-import controller.IncomingController
-import controller.LinkedAccountController
-import controller.ProfileController
+import controller.*
 import enums.Dashboard
 import utility.Helper
 

@@ -1,8 +1,7 @@
-import model.User
 import view.EntryView
 
 fun main() {
-    println("Expense Management Application in Kotlin")
+    println("EXPENSE MANAGEMENT APPLICATION\n")
     val entry = EntryView()
     entry.entryView()
 }

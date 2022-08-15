@@ -13,7 +13,7 @@ class LinkedAccountView {
         if(accounts.size == 0){
             println("\n-------- NO ACCOUNTS LINKED --------\n")
         }else{
-            println("S.NO\t\tAccount Number\t\t\tBankName")
+            println("\nS.NO\t\tAccount Number\t\t\tBankName")
             for(i in 0 until accounts.size){
                 println("${i+1}. \t\t${accounts[i].accountNumber}\t\t\t\t${accounts[i].bankName}")
             }
@@ -34,10 +34,10 @@ class LinkedAccountView {
                     val entry: enums.LinkedAccount = enums.LinkedAccount.values()[option-1]
                     isValidOption = operations(entry, profileController)
                 }else{
-                    println("Enter proper input.")
+                    println("\nEnter proper input.\n")
                 }
             }catch (error: Exception){
-                println("Enter a valid option. Linked account view")
+                println("\nEnter a valid option. Linked account view\n")
             }
 
         }
@@ -70,16 +70,16 @@ class LinkedAccountView {
             try{
                 return readLine()!!.toInt()
             }catch (error: Exception){
-                println("Invalid option. (Account to be deleted)")
+                println("\nInvalid option.\n")
             }
         }
     }
 
     fun removeStatus(status: Boolean) {
         if(status){
-            println("Account removed Successfully")
+            println("\nAccount removed Successfully\n")
         }else{
-            println("Select from the linked accounts")
+            println("\nSelect from the linked accounts\n")
         }
     }
 
@@ -95,9 +95,9 @@ class LinkedAccountView {
 
     fun linkStatus(status: Boolean) {
         if(status){
-            println("Account linked Successfully")
+            println("\nAccount linked Successfully\n")
         }else{
-            println("Account already linked")
+            println("\nAccount already linked\n")
         }
     }
 

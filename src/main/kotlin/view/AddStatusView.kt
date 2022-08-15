@@ -1,7 +1,6 @@
 package view
 
 import enums.Action
-
 open class AddStatusView: StatusView() {
     override fun addStatus(action: Action) {
         when(action){

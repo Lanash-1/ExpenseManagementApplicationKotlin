@@ -4,23 +4,23 @@ import enums.Action
 
 abstract class StatusView {
     fun showAddAccount(){
-        println("No accounts linked. Link a account to continue")
+        println("\nNo accounts linked. Link a account to continue\n")
     }
 
     fun noAccount(){
-        println("Select from available accounts")
+        println("\nSelect from available accounts\n")
     }
     abstract fun addStatus(action: Action)
 
     fun editStatus(){
-        println("Record edited successfully")
+        println("\nRecord edited successfully\n")
     }
 
     fun deleteStatus(){
-        println("Record deleted successfully")
+        println("\nRecord deleted successfully\n")
     }
 
     fun displayError(){
-        println("Select from available record")
+        println("\nSelect from available record\n")
     }
 }

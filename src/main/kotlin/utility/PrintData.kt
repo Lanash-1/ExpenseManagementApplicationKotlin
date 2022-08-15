@@ -17,7 +17,7 @@ class PrintData: PrintService {
         }
         file.writeText(result)
 
-        println("successfully printed expense History.")
+        println("\nsuccessfully printed expense History.\n")
     }
 
     override fun printExpenseHistory(expense: ArrayList<Expense>) {
@@ -30,6 +30,6 @@ class PrintData: PrintService {
             result += "\n${i+1}. \t${expense[i].account.accountNumber}\t${expense[i].amount}\t${expense[i].category}\n"
         }
         file.writeText(result)
-        println("successfully printed expense History.")
+        println("\nsuccessfully printed expense History.\n")
     }
 }

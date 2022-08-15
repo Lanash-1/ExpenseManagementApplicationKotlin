@@ -10,12 +10,12 @@ class ProfileView {
             try {
                 val input = readLine()!!.toInt()
                 if (input != 0){
-                    println("Enter a valid option")
+                    println("\nEnter a valid option\n")
                 }else{
                     break
                 }
             }catch (error: Exception){
-                println("Enter a valid option")
+                println("\nEnter a valid option\n")
             }
         }
     }

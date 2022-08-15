@@ -42,7 +42,7 @@ class EntryView {
                 return false
             }
             Entry.EXIT -> {
-                println("CLOSED")
+                println("App closed")
                 return true
             }
             else -> {

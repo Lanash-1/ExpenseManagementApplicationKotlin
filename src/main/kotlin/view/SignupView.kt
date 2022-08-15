@@ -80,7 +80,7 @@ class SignupView {
             if(helper.validatePassword(password, rePassword)){
                 break
             }else{
-                println("Password not matching, Enter again")
+                println("\nPassword not matching, Enter again\n")
             }
         }
     }

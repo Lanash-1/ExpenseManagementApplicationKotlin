@@ -63,7 +63,6 @@ class Helper {
                 println("${i+1}. ${category[i]}")
             }
             println("Enter your choice: ")
-
             try {
                 val choice = readLine()!!.toInt()
                 if(choice in 1..6){

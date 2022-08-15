@@ -24,10 +24,8 @@ class UserData(
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
             conn = DriverManager.getConnection(url, connectionProps)
         } catch (ex: SQLException) {
-            // handle any errors
             ex.printStackTrace()
         } catch (ex: Exception) {
-            // handle any errors
             ex.printStackTrace()
         }
     }

@@ -16,7 +16,6 @@ class IncomingHistoryView {
     private val helper = Helper()
     val util = Utility()
 
-
     fun displayIncoming(incomingList: ArrayList<Incoming>) {
         if(incomingList.size == 0){
             println("No incoming to show")
@@ -78,7 +77,7 @@ class IncomingHistoryView {
                             )
                         }
                     } catch (error: Exception) {
-                        println("Select valid account")
+                        println("\nSelect valid account")
                     }
                 }
             }

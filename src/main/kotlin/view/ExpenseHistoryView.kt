@@ -27,7 +27,6 @@ class ExpenseHistoryView {
         }
     }
 
-
     fun viewExpense(expenseList: ArrayList<Expense>, profileController: ProfileController): Int {
         expense = expenseList
         if(expenseList.size == 0){

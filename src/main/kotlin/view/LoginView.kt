@@ -10,7 +10,6 @@ class LoginView {
         val input: String = getEmailOrUserName()
         val password: String = getPassword()
         if(validation(input, password)){
-            println("validated")
             val profileController = ProfileController()
             profileController.getUserDetails(input)
             val bankAccountData = BankAccountData()
@@ -23,10 +22,10 @@ class LoginView {
     private fun validation(input: String, password: String): Boolean {
         val util = Utility()
         return if(util.loginValidation(input, password)){
-            println("Logged in successfully")
+            println("\nLogged in successfully\n")
             true
         }else{
-            println("Invalid login credentials.")
+            println("\nInvalid login credentials.\n")
             false
         }
     }
