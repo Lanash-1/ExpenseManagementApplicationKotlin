@@ -7,7 +7,6 @@ import utility.ExpenseData
 import utility.Helper
 import utility.PrintData
 import utility.Utility
-import java.util.ArrayList
 
 class ExpenseHistoryView {
 

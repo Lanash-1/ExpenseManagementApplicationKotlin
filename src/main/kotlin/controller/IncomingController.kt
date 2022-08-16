@@ -5,7 +5,9 @@ import model.Incoming
 import model.LinkedAccount
 import utility.Helper
 import utility.IncomingData
-import view.*
+import view.AddStatusView
+import view.IncomingHistoryView
+import view.LinkedAccountView
 
 class IncomingController: AddStatusView(){
 

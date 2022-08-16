@@ -3,7 +3,10 @@ package utility
 import interfaces.UserDataServices
 import model.LinkedAccount
 import model.User
-import java.sql.*
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.ResultSet
+import java.sql.Statement
 import java.util.*
 
 class UserData(
@@ -23,7 +26,7 @@ class UserData(
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
             conn = DriverManager.getConnection(url, connectionProps)
-        } catch (ex: SQLException) {
+        } catch (ex: Exception) {
             ex.printStackTrace()
         } catch (ex: Exception) {
             ex.printStackTrace()

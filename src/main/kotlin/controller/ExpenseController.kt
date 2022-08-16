@@ -5,7 +5,9 @@ import model.Expense
 import model.LinkedAccount
 import utility.ExpenseData
 import utility.Helper
-import view.*
+import view.AddStatusView
+import view.ExpenseHistoryView
+import view.LinkedAccountView
 
 class ExpenseController: AddStatusView() {
 

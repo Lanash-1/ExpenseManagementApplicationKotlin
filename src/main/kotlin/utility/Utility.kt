@@ -3,9 +3,11 @@ package utility
 import model.Expense
 import model.Incoming
 import model.LinkedAccount
-import java.sql.*
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.ResultSet
+import java.sql.Statement
 import java.util.*
-
 class Utility(
     private var conn: Connection? = null,
     private var st: Statement? = null,
@@ -23,7 +25,7 @@ class Utility(
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
             conn = DriverManager.getConnection(url, connectionProps)
-        } catch (ex: SQLException) {
+        } catch (ex: Exception) {
             ex.printStackTrace()
         } catch (ex: Exception) {
             ex.printStackTrace()

@@ -2,9 +2,11 @@ package utility
 
 import interfaces.BankAccountServices
 import model.LinkedAccount
-import java.sql.*
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.ResultSet
+import java.sql.Statement
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BankAccountData (
     private var conn: Connection? = null,
@@ -23,7 +25,7 @@ class BankAccountData (
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance()
             conn = DriverManager.getConnection(url, connectionProps)
-        } catch (ex: SQLException) {
+        } catch (ex: Exception) {
             ex.printStackTrace()
         } catch (ex: Exception) {
             ex.printStackTrace()

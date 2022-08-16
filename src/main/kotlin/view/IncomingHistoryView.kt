@@ -7,7 +7,6 @@ import utility.Helper
 import utility.IncomingData
 import utility.PrintData
 import utility.Utility
-import java.util.ArrayList
 
 class IncomingHistoryView {
 
